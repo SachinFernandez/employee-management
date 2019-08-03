@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import axios from "axios"
 import Input from "./Components/InputComponents/Input";
 import Select from "./Components/InputComponents/Select";
 
@@ -35,7 +36,23 @@ class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.user);
+    
+
+    this.sendingData();
+  }
+
+  sendingData() {
+    const { user } = this.state;
+
+    axios
+    .post("http://dummy.restapiexample.com/api/v1/create",
+    {
+      name: user.firstname,
+      age: user.age,
+      salary: user.salary
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
   }
 
   render() {
